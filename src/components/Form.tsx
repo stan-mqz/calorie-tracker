@@ -11,6 +11,15 @@ export default function Form() {
 
     })
 
+    const handleChange = (e) => {
+
+      setActivity({
+        ...activity,
+        [e.target.id] : e.target.value
+      })
+    
+    }
+
   return (
     <form className="space-y-5 bg-white shadow p-10 rounded-lg">
       <div className="grid grid-cols-1 gap-3">
@@ -20,6 +29,7 @@ export default function Form() {
           name=""
           id="cathegory"
           value={activity.cathegory}
+          onChange={handleChange}
         >
           {cathegories.map((cathegorie) => (
             <option
@@ -38,6 +48,7 @@ export default function Form() {
             p-2
             rounded-lg"
             value={activity.name}
+            onChange={handleChange}
             type="text"
             placeholder="Ej. Comida, Jugo de Naranja, Ensalada, Ejercicio, Pesas, Bicicleta"/>
       </div>
@@ -51,6 +62,7 @@ export default function Form() {
             p-2
             rounded-lg"
             value={activity.calories}
+            onChange={handleChange}
             type="number"
             placeholder="Calorias .ej. 300 o 500"/>
       </div>
