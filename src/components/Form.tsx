@@ -1,9 +1,10 @@
 import { useState } from "react";
+import type { Activity } from "../types/types";
 import { cathegories } from "../data/categories";
 
 export default function Form() {
 
-    const [activity, setActivity] = useState({
+    const [activity, setActivity] = useState<Activity>({
 
         cathegory : 1,
         name: '',
@@ -11,13 +12,24 @@ export default function Form() {
 
     })
 
-    const handleChange = (e) => {
+    
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+
+      const isNumberField = ['cathegory', 'calories'].includes(e.target.id)
+      
 
       setActivity({
         ...activity,
-        [e.target.id] : e.target.value
+        [e.target.id] : isNumberField ? +e.target.value : e.target.value
       })
     
+    }
+
+    const isValidActivity = () => {
+
+      const { name, calories } = activity
+      return name.trim() !== '' && calories > 0
     }
 
   return (
@@ -64,14 +76,16 @@ export default function Form() {
             value={activity.calories}
             onChange={handleChange}
             type="number"
+            min="0"
             placeholder="Calorias .ej. 300 o 500"/>
       </div>
 
 
       <input 
       type="submit"
-      className="bg-gray-800 hover:bg-gray-900 w-full text-white p-2 font-bold uppercase cursor-pointer"
+      className="bg-gray-800 hover:bg-gray-900 w-full text-white p-2 font-bold uppercase cursor-pointer disabled:opacity-10"
       value="Guardar Comida o Guardar Ejercicio" 
+      disabled={!isValidActivity()}
       />
 
     </form>
