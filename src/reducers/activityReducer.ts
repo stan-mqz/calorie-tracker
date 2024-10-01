@@ -4,7 +4,7 @@ import { Activity } from "../types/types"
 y cada propiedad es un state diferente, podemos tipar esos states para evitar que reciban valores 
 incorrectos*/
 
-type ActivityState = {
+export type ActivityState = {
     activities: Activity[]//Este state recibirá un arreglo de objetos de tipo Actitvity 
 
     /*Aca podriamos añadir mas estados y definiriles un tipado estático, por ejemplo:
@@ -43,11 +43,18 @@ export const activityReducer = (
 ) => {
 
     //Indicamos que pasa cuando llamemos a esta acción
-    if(action.type === 'save-activity') {
-        //Este código maneja la lógica para actualizar el state
-        console.log('Desde nuestro reducer')
+    switch (action.type) {
+        case 'save-activity':
+        
+            return { 
+                ...state,
+                activities: [...state.activities, action.paylodad.newActivity]
+            }
 
+            break;
+    
+        default:
+            return state
+            break;
     }
-
-    return state
 }

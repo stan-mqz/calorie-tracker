@@ -1,4 +1,5 @@
 import { useState, Dispatch } from "react";
+import {v4 as uuidv4 } from 'uuid'
 import type { Activity } from "../types/types";
 import { cathegories } from "../data/categories";
 import { ActivityActions } from "../reducers/activityReducer";
@@ -7,16 +8,19 @@ type FormProps = {
   dispatch: Dispatch<ActivityActions>
 }
 
+
+const initialState : Activity = {
+  id: uuidv4(),
+  cathegory : 1,
+  name: '',
+  calories: 0
+
+}
+
 export default function Form({dispatch}: FormProps) {
 
   
-    const [activity, setActivity] = useState<Activity>({
-
-        cathegory : 1,
-        name: '',
-        calories: 0
-
-    })
+    const [activity, setActivity] = useState<Activity>(initialState)
 
     
 
@@ -37,7 +41,15 @@ export default function Form({dispatch}: FormProps) {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       
+      /*Llamamos al dispatch, le pasamos el type save-activity y el payload(datos), será el estado 
+      del formulario (activity), o sea, la información introducida en sus campos*/
       dispatch({ type : 'save-activity', paylodad: {newActivity: activity}})
+
+      //Tomamos una copia del estado inicial para reiniciarlo, y le cambiamos el id por uno nuevo
+      setActivity({
+        ...initialState,
+        id: uuidv4()
+      })
     }
 
     const isValidActivity = () => {
