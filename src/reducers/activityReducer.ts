@@ -1,37 +1,39 @@
 import { Activity } from "../types/types"
 
+/*Creamos la acción save-activity que nos permita modificar el state que le indiquemos en su respectiva
+condición*/
+
+export type ActivityActions = 
+
+    /* Pasamos el type (descripcion de lo que hace) y el payload: los nuevos datos del estado,
+       también especificamos el tipo de dato del payload. Por ejemplo
+       type : 'ejemplo', paylaod : string
+    */
+ 
+       {type : 'save-activity', payload : { newActivity : Activity }} |
+       {type : 'set-activeID', payload : { id : Activity['id'] }} 
+       
+
+
 /*Creamos un type para el state inicial. Como nuestro state inicial es un state general
 y cada propiedad es un state diferente, podemos tipar esos states para evitar que reciban valores 
 incorrectos*/
 
 export type ActivityState = {
     activities: Activity[]//Este state recibirá un arreglo de objetos de tipo Actitvity 
-
+    activedID : Activity['id']
     /*Aca podriamos añadir mas estados y definiriles un tipado estático, por ejemplo:
     counter : number
     */
 }
-
-/*Creamos la acción save-activity que nos permita modificar el state que le indiquemos en su respectiva
-condición*/
-
-export type ActivityActions = {
-
-    /* Pasamos el type (descripcion de lo que hace) y el payload: los nuevos datos del estado,
-       también especificamos el tipo de dato del payload. Por ejemplo
-
-       type : 'ejemplo', paylaod : string
-    */
-    type : 'save-activity', paylodad: { newActivity: Activity}
-}
-
 
 /*Esta variable (objeto) almacena los states iniciales que le pasemos como sus propiedades. Al tener un tipo de
  ActivityState deberá tener todas las propiedaes pasadas al type y el tipo de dato de las propiedades 
  en el type*/
 
 export const initialState : ActivityState = {
-    activities : []
+    activities : [],
+    activedID : ''
 
     //counter: 0
 }
@@ -48,10 +50,17 @@ export const activityReducer = (
         
             return { 
                 ...state,
-                activities: [...state.activities, action.paylodad.newActivity]
+                activities: [...state.activities, action.payload.newActivity]
             }
 
             break;
+
+        case 'set-activeID' :
+
+            return {
+                ...state,
+                activeID : action.payload.id
+            }
     
         default:
             return state
