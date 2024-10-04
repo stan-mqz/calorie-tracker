@@ -59,7 +59,7 @@ export const activityReducer = (
 
             return {
                 ...state,
-                activeID : action.payload.id
+                activedID : action.payload.id
             }
     
         default:

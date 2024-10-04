@@ -1,10 +1,11 @@
-import { useState, Dispatch } from "react";
+import { useState, Dispatch, useEffect } from "react";
 import {v4 as uuidv4 } from 'uuid'
 import type { Activity } from "../types/types";
 import { cathegories } from "../data/categories";
-import { ActivityActions } from "../reducers/activityReducer";
+import { ActivityActions, ActivityState } from "../reducers/activityReducer";
 
 type FormProps = {
+  state: ActivityState
   dispatch: Dispatch<ActivityActions>
 }
 
@@ -17,11 +18,18 @@ const initialState : Activity = {
 
 }
 
-export default function Form({dispatch}: FormProps) {
+export default function Form({state, dispatch}: FormProps) {
 
   
     const [activity, setActivity] = useState<Activity>(initialState)
 
+    useEffect(() => {
+      if (state.activedID) {
+        const selectedActivity = state.activities.filter( stateActivity => stateActivity.id === state.activedID)[0]//Al ponerlo así retorna un obejto, por que eso es lo que recorre
+        setActivity(selectedActivity)
+      }
+      
+    }, [state.activedID])
     
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
