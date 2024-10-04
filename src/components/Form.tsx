@@ -43,7 +43,7 @@ export default function Form({dispatch}: FormProps) {
       
       /*Llamamos al dispatch, le pasamos el type save-activity y el payload(datos), será el estado 
       del formulario (activity), o sea, la información introducida en sus campos*/
-      dispatch({ type : 'save-activity', paylodad: {newActivity: activity}})
+      dispatch({ type : 'save-activity', payload: {newActivity: activity}})
 
       //Tomamos una copia del estado inicial para reiniciarlo, y le cambiamos el id por uno nuevo
       setActivity({
