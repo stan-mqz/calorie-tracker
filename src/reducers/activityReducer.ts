@@ -47,11 +47,21 @@ export const activityReducer = (
     //Indicamos que pasa cuando llamemos a esta acción
     switch (action.type) {
         case 'save-activity':
+
+        let updatedActivities : Activity[] = []
+
+        if (state.activedID) {
+            updatedActivities = state.activities.map( activity => activity.id === state.activedID ? action.payload.newActivity : activity)
+        } else {
+            updatedActivities = [...state.activities, action.payload.newActivity]
+        }
         
-            return { 
-                ...state,
-                activities: [...state.activities, action.payload.newActivity]
-            }
+        return { 
+            ...state,
+            activities: updatedActivities,
+            activedID : ''
+        }
+            
 
             break;
 
