@@ -11,7 +11,8 @@ export type ActivityActions =
 
   | { type: "save-activity"; payload: { newActivity: Activity } }
   | { type: "set-activeID"; payload: { id: Activity["id"] } }
-  | { type: "delete-activeID"; payload: { id: Activity["id"] } };
+  | { type: "delete-activeID"; payload: { id: Activity["id"] } }
+  | { type: "restart-app"  }
 
 /*Creamos un type para el state inicial. Como nuestro state inicial es un state general
 y cada propiedad es un state diferente, podemos tipar esos states para evitar que reciban valores 
@@ -25,12 +26,18 @@ export type ActivityState = {
     */
 };
 
+
+const localStorageActivities = () : Activity[] => {
+  const activities = localStorage.getItem('activities')
+  return activities ? JSON.parse(activities) : []
+}
+
 /*Esta variable (objeto) almacena los states iniciales que le pasemos como sus propiedades. Al tener un tipo de
  ActivityState deberá tener todas las propiedaes pasadas al type y el tipo de dato de las propiedades 
  en el type*/
 
 export const initialState: ActivityState = {
-  activities: [],
+  activities: localStorageActivities(),
   activedID: "",
 
   //counter: 0
@@ -77,6 +84,14 @@ export const activityReducer = (
           activities : deletedActivity
         } 
         
+
+        case "restart-app":
+
+        return {
+          activities: [],
+          activedID: "",        
+        }
+
     default:
       return state;
   }
