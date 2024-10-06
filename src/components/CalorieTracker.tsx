@@ -7,8 +7,7 @@ type CalorieTrackerProps = {
 };
 
 export const CalorieTracker = ({ activities }: CalorieTrackerProps) => {
-  
-    const caloriesConsumed = useMemo(
+  const caloriesConsumed = useMemo(
     () =>
       activities.reduce(
         (total, activity) =>
@@ -28,6 +27,10 @@ export const CalorieTracker = ({ activities }: CalorieTrackerProps) => {
     [activities]
   );
 
+  const netCalories = useMemo(
+    () => caloriesConsumed - caloriesBurned,
+    [activities]
+  );
 
   return (
     <>
@@ -36,15 +39,9 @@ export const CalorieTracker = ({ activities }: CalorieTrackerProps) => {
       </h2>
 
       <div className="flex flex-col items-center md:flex-row md:justify-between gap-5 mt-10">
-
-        <CalorieDisplay
-            calories={caloriesConsumed}
-            text="Consumidas"
-        />
-        <CalorieDisplay
-            calories={caloriesBurned}
-            text="Ejercicio"
-        />
+        <CalorieDisplay calories={caloriesConsumed} text="Consumidas" />
+        <CalorieDisplay calories={caloriesBurned} text="Ejercicio" />
+        <CalorieDisplay calories={netCalories} text="Diferencia" />
       </div>
     </>
   );
