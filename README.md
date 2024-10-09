@@ -1,50 +1,18 @@
-# React + TypeScript + Vite
+# Calorie Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Live Demo](https://stan-mqz-calorie-tracker.netlify.app/)
 
-Currently, two official plugins are available:
+Calorie Tracker is an application built with Vite, React, TypeScript, and Tailwind CSS that allows users to track their calorie intake from food and calories burned through exercise. The app visually displays the total calories consumed, burned, and the difference between them, making it easier to manage daily calorie balance.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Food Log**: Add and store meals with their respective calorie counts.
+- **Exercise Log**: Add exercises and the number of calories burned.
+- **Calorie Summary**: View the difference between consumed and burned calories for better tracking.
+- **User-friendly Interface**: Designed with Tailwind CSS for a clean and responsive UI.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Vite**: For fast and efficient development.
+- **React with TypeScript**: For strong typing and state management in the app.
+- **Tailwind CSS**: For custom styles and responsive design.
